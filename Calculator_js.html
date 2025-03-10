@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="first.css">
+</head>
+<body>
+    <section class="bg-[url(calculator.jpg)] flex bg-no-repeat bg-cover h-screen justify-center items-center">
+        <div class="border-4 w-96 h-80 text-white bg-black p-4">
+            <h1 class="text-4xl text-center mt-4 font-extrabold underline">Calculator</h1>
+            <input type="text" id="f_num" placeholder="Enter first number" class="border-2 w-full mt-4 px-3 py-2">
+            <input type="text" id="s_num" placeholder="Enter second number" class="border-2 w-full mt-4 px-3 py-2">
+            <div class="flex justify-center mt-4 space-x-4">
+                <button class="border-2 px-4 py-2" onclick="calculate('add')">ADD</button>
+                <button class="border-2 px-4 py-2" onclick="calculate('sub')">SUB</button>
+                <button class="border-2 px-4 py-2" onclick="calculate('mul')">MUL</button>
+                <button class="border-2 px-4 py-2" onclick="calculate('div')">DIV</button>
+            </div>
+            <h1 id="ans" class="mt-4 text-center"></h1>
+        </div>
+    </section>
+    <script>
+        function calculate(operation) {
+            var f_num = parseFloat(document.getElementById("f_num").value);
+            var s_num = parseFloat(document.getElementById("s_num").value);
+            var ans = document.getElementById("ans");
+            var result;
+
+            if (isNaN(f_num) || isNaN(s_num)) {
+                ans.innerHTML = "Please enter valid numbers";
+                return;
+            }
+
+            switch (operation) {
+                case 'add':
+                    result = f_num + s_num;
+                    ans.innerHTML = `${f_num} + ${s_num} = ${result}`;
+                    break;
+                case 'sub':
+                    result = f_num - s_num;
+                    ans.innerHTML = `${f_num} - ${s_num} = ${result}`;
+                    break;
+                case 'mul':
+                    result = f_num * s_num;
+                    ans.innerHTML = `${f_num} * ${s_num} = ${result}`;
+                    break;
+                case 'div':
+                    if (s_num === 0) {
+                        ans.innerHTML = "Cannot divide by zero";
+                    } else {
+                        result = f_num / s_num;
+                        ans.innerHTML = `${f_num} / ${s_num} = ${result}`;
+                    }
+                    break;
+                default:
+                    ans.innerHTML = "Invalid operation";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Start</title>
+    
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="first.css">
+
+</head>
+<body class="bg-gray-100"></body>
+    <section class="flex justify-center items-center h-screen w-screen">
+        <div class="bg-white shadow-lg rounded-2xl w-3/4 md:w-1/2 lg:w-1/3 p-6">
+            <div class="flex justify-center">
+                <h1 class="text-3xl font-bold mt-4 mb-10 text-center">Carefully Complete Your Quiz</h1>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold mb-4">Question <span id="qno"></span>: <span id="que"></span></h2> 
+            </div>
+            <div class="mb-6">
+                <label class="block mb-2">
+                    <input type="radio" name="options" class="mr-2" onclick="check()" />
+                    <span id="op1"></span>
+                </label>
+                <label class="block mb-2">
+                    <input type="radio" name="options" class="mr-2" onclick="check()" />
+                    <span id="op2"></span>
+                </label>
+                <label class="block mb-2">
+                    <input type="radio" name="options" class="mr-2" onclick="check()" />
+                    <span id="op3"></span>
+                </label>
+                <label class="block mb-2">
+                    <input type="radio" name="options" class="mr-2" onclick="check()" />
+                    <span id="op4"></span>
+                </label>
+            </div>
+            <div class="flex justify-end">
+                <button class="mt-2 mb-4 px-6 py-2 border-2 text-xl rounded-xl bg-green-600 text-white hover:bg-green-700" onclick="next()">Next</button>
+            </div>
+        </div>
+    </section>
+    <script>
+        var listOfQue = JSON.parse(localStorage.getItem("Question"))
+        var currentIndex = 0
+        var score = 0
+        setQuestion()
+        function setQuestion(){
+            var question = listOfQue[currentIndex]
+            document.getElementById("qno").innerHTML = currentIndex + 1
+            document.getElementById("que").innerHTML = question.Question
+            document.getElementById("op1").innerHTML = question.option_1 
+            document.getElementById("op2").innerHTML = question.option_2
+            document.getElementById("op3").innerHTML = question.option_3
+            document.getElementById("op4").innerHTML = question.option_4
+
+        }
+        function next(){
+            if(currentIndex < listOfQue.length) {
+                currentIndex++
+                setQuestion()
+            }else{
+                document.body.innerHTML = "<h1 class='text-center text-4xl font-bold mt-20'>Your Score: "+score+"</h1>"
+                alert("No more questions. Your score is: "+score)
+            }
+        }
+        function check(){
+            var radioButtons = document.getElementsByName("options")
+            var op1Value = document.getElementById("op1").innerText
+            var op2Value = document.getElementById("op2").innerText
+            var op3Value = document.getElementById("op3").innerText
+            var op4Value = document.getElementById("op4").innerText
+            for(var i=0; i<4; i++){
+                var button = radioButtons[i]
+                if(i==0 && button.checked){
+                    if(listOfQue[currentIndex].Answer==op1Value){
+                        score++
+                    }
+                }
+                if(i==1 && button.checked){
+                    if(listOfQue[currentIndex].Answer==op2Value){
+                        score++
+                    }
+                }
+                if(i==2 && button.checked){
+                    if(listOfQue[currentIndex].Answer==op3Value){
+                        score++
+                    }
+                }
+                if(i==3 && button.checked){
+                    if(listOfQue[currentIndex].Answer==op4Value){
+                        score++
+                    }
+                }
+            }
+        }
+
+    </script>
+    <script>
+        alert("Quiz STARTED successfully");
+    </script>
+</body>
+</html>

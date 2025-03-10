@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="first.css">
+
+    <title>Registration Form</title>
+</head>        
+<body class="bg-gray-100">
+
+    <section class="flex justify-center items-center h-screen">
+        <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl font-extrabold text-gray-800">Registration Form</h1>
+            </div>
+            <form action="post">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2" for="name">Full Name</label>
+                    <input class="border border-gray-300 rounded-lg w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="Enter your full name" id="name" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2" for="email_id">Email Id</label>
+                    <input class="border border-gray-300 rounded-lg w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" type="email" placeholder="Enter your valid email id" id="email_id" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-bold mb-2" for="username">User Name</label>
+                    <input class="border border-gray-300 rounded-lg w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" placeholder="Enter username" id="username" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-bold mb-2" for="password">Password</label>
+                    <input class="border border-gray-300 rounded-lg w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" type="password" placeholder="Enter password" id="password" required>
+                </div>
+                <div class="flex justify-center mb-4">
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="SaveRegisteredData()">Register</button>
+                </div>
+                <p class="text-center text-gray-600">Already have an account? <a href="log_in.html" class="text-blue-600 hover:underline">Login</a></p>
+            </form>
+        </div>
+    </section>
+    <script>
+        var listOfRegistered = JSON.parse(localStorage.getItem('Registration')) ?? []
+        function SaveRegisteredData() {
+            var name = document.getElementById("name").value
+            var email = document.getElementById("email_id").value
+            var username = document.getElementById("username").value
+            var pwd = document.getElementById("password").value
+            var RegisterObject = {
+                Full_Name: name.toLowerCase(),
+                Email: email.toLowerCase(),
+                Username: username.toLowerCase(),
+                Password: pwd.toLowerCase()
+            }
+            listOfRegistered.push(RegisterObject)
+            localStorage.setItem("Registration", JSON.stringify(listOfRegistered))
+        }
+    </script>
+    <script>
+        function SaveRegisteredData() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email_id").value;
+            var username = document.getElementById("username").value;
+            var pwd = document.getElementById("password").value;
+            var RegisterObject = {
+                Full_Name: name.toLowerCase(),
+                Email: email.toLowerCase(),
+                Username: username.toLowerCase(),
+                Password: pwd.toLowerCase()
+            };
+            listOfRegistered.push(RegisterObject);
+            localStorage.setItem("Registration", JSON.stringify(listOfRegistered));
+            alert("Registered successfully!");
+        }
+    </script>
+</body>
+</html>
